@@ -54,8 +54,9 @@ public class app {
     	/*Xls_Reader read= new Xls_Reader("D:\\project selenium\\FrameWork\\Mavensample\\src\\main\\java\\MavenSam\\Mavensample\\Datatest.xlsx");
     	int rowCount =	read.getRowCount("Sheet1");
         System.out.println(">>>>> Row " +rowCount );
-      */  
-        File src=new File("D:/project selenium/FrameWork/Mavensample/src/main/java/MavenSam/Mavensample/Datatest.xls");
+        */  
+        
+    	File src=new File("D:/project selenium/FrameWork/Mavensample/src/main/java/MavenSam/Mavensample/Datatest.xls");
        
         
     	wd.get("http://house1.in/app/admin/");
@@ -115,7 +116,7 @@ public class app {
      	        //Then Select required value
      	        Select dropdown = new Select(wd.findElement(By.id("parent_cate")));
      	        dropdown.selectByVisibleText(Sub_Category);
-     	     
+     	       Thread.sleep(2000);
      	      
      	        wd.findElement(By.name("submit")).click();
      	        Thread.sleep(5000);
