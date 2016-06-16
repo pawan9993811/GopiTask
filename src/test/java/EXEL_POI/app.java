@@ -1,4 +1,7 @@
 package EXEL_POI;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -12,10 +15,16 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.File;
+import java.io.IOException;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.interactions.Actions;
@@ -35,20 +44,131 @@ public class app {
     public void setUp() throws Exception {
         wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    }
+        wd.manage().window().maximize();
+    
+   }
     
     @Test
     public void app() throws InterruptedException, AWTException {
         
     	Xls_Reader read= new Xls_Reader("D:\\project selenium\\FrameWork\\Mavensample\\src\\main\\java\\MavenSam\\Mavensample\\Datatest.xlsx");
-        int rowCount =	read.getRowCount("Sheet1");
+    	int rowCount =	read.getRowCount("Sheet1");
         System.out.println(">>>>> Row " +rowCount );
         
+        File src=new File("D:/project selenium/FrameWork/Mavensample/src/main/java/MavenSam/Mavensample/Datatest.xls");
+       
         
     	wd.get("http://house1.in/app/admin/");
     	loginapp();
     	
-    	for (int i = 2; i <rowCount ; i++) {
+    	
+    	 try {
+ 			Workbook wb=Workbook.getWorkbook(src);
+ 			Sheet sh1=    wb.getSheet(0);
+ 			int rowCount1 =sh1.getRows();
+ 			
+ 			for (int i = 1; i <rowCount1; i++) {
+ 				
+ 				Cell  c1=sh1.getCell(0,i);
+ 				String Name=c1.getContents();
+ 				
+ 				
+ 				System.out.println("+++++++++" +Name);
+ 				wd.findElement(By.id("first-name")).click();
+ 	    	      wd.findElement(By.id("first-name")).clear();
+ 	    	      wd.findElement(By.id("first-name")).sendKeys(Name);
+ 	    	     	
+ 	    	     //Import image
+ 	    	      wd.findElement(By.name("profile_image")).click();
+ 	    	      
+ 	    	      try {
+ 	    	    	  
+ 					uploadfilewithskili(uploadfile);
+ 				} catch (FindFailed e) {
+ 					// TODO Auto-generated catch block
+ 					e.printStackTrace();
+ 				}
+ 	    	      
+ 	    	    Cell  c2=sh1.getCell(1,i);
+  				String Number=c2.getContents();
+  				System.out.println(Number);
+  				
+ 	    	     wd.findElement(By.id("number")).click();
+ 	    	      wd.findElement(By.id("number")).clear();
+ 	    	      wd.findElement(By.id("number")).sendKeys(Number);
+ 	    	      
+ 	    	     Cell  c3=sh1.getCell(2,i);
+   				String Address=c3.getContents();
+   				System.out.println(Address);
+   				
+ 	    	     wd.findElement(By.id("address")).click();
+     	        wd.findElement(By.id("address")).clear();
+     	        wd.findElement(By.id("address")).sendKeys(Address);
+     	        
+     	       Cell  c4=sh1.getCell(3,i);
+  				String Sub_Category=c4.getContents();
+  				System.out.println(Sub_Category);
+  				
+  				  JavascriptExecutor js = (JavascriptExecutor)wd;
+     	        js.executeScript("document.getElementById('parent_cate').style.display='block';");
+     	         
+     	        //Then Select required value
+     	        Select dropdown = new Select(wd.findElement(By.id("parent_cate")));
+     	        dropdown.selectByVisibleText(Sub_Category);
+     	     
+     	      
+     	        wd.findElement(By.name("submit")).click();
+     	        Thread.sleep(5000);
+ 	    	      
+ 	    	      
+ 	    	      
+ 				
+ 			}
+ 			
+ 			
+ 		} catch (BiffException e1) {
+ 			// TODO Auto-generated catch block
+ 			e1.printStackTrace();
+ 		} catch (IOException e1) {
+ 			// TODO Auto-generated catch block
+ 			e1.printStackTrace();
+ 		}
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	/*
+    	
+    	
+    	
+    	
+    	for (int i = 2; i <rowCount-1 ; i++) {
     		 
     		//Enter Name
     		String Name = read.getCellData("Sheet1", "Name", i);
@@ -60,6 +180,15 @@ public class app {
     	     
     	      //Import image
     	      wd.findElement(By.name("profile_image")).click();
+    	      
+    	      try {
+    	    	  
+				uploadfilewithskili(uploadfile);
+			} catch (FindFailed e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	      
     	     //wd.findElement(By.name("profile_image")).sendKeys(uploadfile);
     	    //put path to your image in a clipboard
     	      StringSelection ss = new StringSelection(uploadfile);
@@ -100,10 +229,11 @@ public class app {
     	     
     	      
     	        wd.findElement(By.name("submit")).click();
-    	        Thread.sleep(2000);
+    	        Thread.sleep(5000);
+    	        
     	        read.setCellData("Sheet1","Result", i, "Pass");
     	  	 
-		}
+		}*/
     
     	
       
@@ -129,6 +259,20 @@ public class app {
 	        wd.findElement(By.linkText("Add Provider")).click();
 	}
 	
+public static void uploadfilewithskili(String locationOfuploadfile) throws FindFailed{
+		
+		Screen sc = new Screen();
+		
+		
+		Pattern find = new Pattern("D:\\project selenium\\FrameWork\\Mavensample\\images\\Find.png");
+		Pattern open = new Pattern("D:\\project selenium\\FrameWork\\Mavensample\\images\\open.PNG");
+		
+		sc.type(find, locationOfuploadfile);
+		sc.click(open);
+		
+	}
+	
+
     
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {
