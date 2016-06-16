@@ -51,10 +51,10 @@ public class app {
     @Test
     public void app() throws InterruptedException, AWTException {
         
-    	Xls_Reader read= new Xls_Reader("D:\\project selenium\\FrameWork\\Mavensample\\src\\main\\java\\MavenSam\\Mavensample\\Datatest.xlsx");
+    	/*Xls_Reader read= new Xls_Reader("D:\\project selenium\\FrameWork\\Mavensample\\src\\main\\java\\MavenSam\\Mavensample\\Datatest.xlsx");
     	int rowCount =	read.getRowCount("Sheet1");
         System.out.println(">>>>> Row " +rowCount );
-        
+      */  
         File src=new File("D:/project selenium/FrameWork/Mavensample/src/main/java/MavenSam/Mavensample/Datatest.xls");
        
         
