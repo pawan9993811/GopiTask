@@ -3,13 +3,12 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="EXEL_POI.app">
+      <class name="EXEL_POI.appWithXL2010">
         <methods>
-          <include name="tearDown"/>
-          <include name="setUp"/>
           <include name="app"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- EXEL_POI.app -->
+      </class> <!-- EXEL_POI.appWithXL2010 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

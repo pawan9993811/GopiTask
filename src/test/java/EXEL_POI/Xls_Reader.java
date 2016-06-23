@@ -150,8 +150,11 @@ public class Xls_Reader {
 		  return cell.getStringCellValue();
 	  else if(cell.getCellType()==Cell.CELL_TYPE_NUMERIC || cell.getCellType()==Cell.CELL_TYPE_FORMULA ){
 		  
-		  String cellText  = String.valueOf(cell.getNumericCellValue());
-		 /* if (HSSFDateUtil.isCellDateFormatted(cell)) {
+		//  String cellText  = String.valueOf(cell.getNumericCellValue());
+		  cell.setCellType(Cell.CELL_TYPE_STRING);
+		  String cellText  =  cell.getStringCellValue();
+		  
+		  /* if (HSSFDateUtil.isCellDateFormatted(cell)) {
 	           // format in form of M/D/YY
 			  double d = cell.getNumericCellValue();
 

@@ -30,8 +30,8 @@
 			<artifactId>selenium-java</artifactId>
 			<version>2.53.0</version>
 		</dependency>
-		<!-- POI -->
-		<dependency>
+		
+<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.6</version>
@@ -59,7 +59,6 @@
 			<artifactId>xmlbeans</artifactId>
 			<version>2.6.0</version>
 		</dependency>
-
 		<!-- JavaMail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
